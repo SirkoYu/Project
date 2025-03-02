@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class BookingModel {
-    private final String FILE_NAME = "bookings.txt";
     private final List<String> bookings = new ArrayList<>();
     private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z]+\\s+[a-zA-Z]+$|^[a-zA-Z]+,\\s*[a-zA-Z]+$");
     private static final Pattern TIME_PATTERN = Pattern.compile("^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$");
@@ -21,8 +20,12 @@ public class BookingModel {
         loadBookings();
     }
 
+    protected String getFileName() {
+        return "bookings.txt";
+    }
+
     private void ensureFileExists() {
-        File file = new File(FILE_NAME);
+        File file = new File(getFileName());
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -33,7 +36,7 @@ public class BookingModel {
     }
 
     private void loadBookings() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(getFileName()))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 bookings.add(line);
@@ -44,7 +47,7 @@ public class BookingModel {
     }
 
     private void saveBookings() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(getFileName()))) {
             for (String booking : bookings) {
                 writer.write(booking);
                 writer.newLine();
