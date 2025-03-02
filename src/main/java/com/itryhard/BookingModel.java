@@ -67,8 +67,14 @@ public class BookingModel {
     }
 
     public boolean isBookingExists(String name, String table, String time) {
-        return bookings.stream().anyMatch(b -> b.contains(name) || b.contains("Table: " + table + " at " + time));
+        return bookings.stream().anyMatch(b -> {
+            boolean isActive = b.contains("[PENDING]") || b.contains("[ARRIVED]");
+            boolean samePerson = b.contains(name);
+            boolean sameTableAndTime = b.contains("Table: " + table + " at " + time);
+            return (samePerson && isActive) || (sameTableAndTime && isActive);
+        });
     }
+    
 
     public void addBooking(String name, String table, String time) {
         if (!isValidName(name)) {
