@@ -19,6 +19,15 @@ public class BookingController {
             }
         });
 
+        view.cancelBookingListener(_ -> {
+            int index = view.getSelectedBookingIndex();
+            if (index >= 0) {
+                model.markAsCanceled(index);
+                view.updateBookingList(model.getBookings());
+            } else {
+                JOptionPane.showMessageDialog(view, "Select a booking to cancel!", "Selection Error", JOptionPane.WARNING_MESSAGE);
+            }
+        });
         view.removeBookingListener(_ -> {
             int index = view.getSelectedBookingIndex();
             if (index >= 0) {

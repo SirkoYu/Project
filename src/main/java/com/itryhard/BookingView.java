@@ -20,7 +20,8 @@ public class BookingView extends JFrame{
     private final JTextField tableField = new JTextField(5);
     private final JTextField timeField = new JTextField(5);
     private final JButton addButton = new JButton("Add Booking");
-    private final JButton removeButton = new JButton("Cancel Booking");
+    private final JButton cancelButton = new JButton("Cancel Booking");
+    private final JButton removeButton = new JButton("Remove Booking");
     private final JButton arrivedButton = new JButton("Mark as Arrived");
 
     public BookingView() {
@@ -44,6 +45,7 @@ public class BookingView extends JFrame{
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(arrivedButton);
+        buttonPanel.add(cancelButton);
         buttonPanel.add(removeButton);
         add(buttonPanel, BorderLayout.SOUTH);
     }
@@ -87,5 +89,8 @@ public class BookingView extends JFrame{
 
     public void markAsArrivedListener(ActionListener listener) {
         arrivedButton.addActionListener(listener);
+    }
+    public void cancelBookingListener(ActionListener listener) {
+        cancelButton.addActionListener(listener);
     }
 }
